@@ -79,3 +79,6 @@ export default NextAuth(authOptions);
 
 // Podsumowując, ten kod definiuje sposób uwierzytelniania użytkowników w aplikacji, używając różnych dostawców uwierzytelnienia i sprawdzając poprawność danych uwierzytelniających w bazie danych.
 
+// JWT to standard, który umożliwia bezpieczne przesyłanie informacji między stroną a serwerem w formie tokenów. Token JWT zawiera informacje o użytkowniku, które są podpisane cyfrowo, aby zapewnić ich autentyczność i integralność.
+// secret: process.env.NEXTAUTH_SECRET: Ta linijka kodu określa sekret używany do podpisywania tokenów JWT. Wartość sekretu jest pobierana z wartości środowiskowej NEXTAUTH_SECRET.
+
