@@ -31,3 +31,11 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
 };
 
 export default Navbar;
+
+// // Ten kod definiuje komponent funkcyjny Navbar, który przyjmuje jako props currentUser. Komponent ten jest napisany w języku TypeScript i korzysta z biblioteki React.
+
+// React.FC to generyczny interfejs funkcji komponentu w React, który dostarcza typy dla props i zwracanego wyniku. W tym przypadku, NavbarProps jest typem, który reprezentuje oczekiwane właściwości (props) dla komponentu Navbar.
+
+// Wewnątrz komponentu Navbar, znajduje się instrukcja console.log(currentUser). console.log() służy do wypisywania informacji w konsoli przeglądarki lub narzędzi deweloperskich. W tym przypadku, wartość currentUser jest wypisywana w konsoli w celu debugowania lub sprawdzenia wartości przekazanej do komponentu.
+
+// W skrócie, kod ten definiuje komponent Navbar, który przyjmuje currentUser jako props i wypisuje jego wartość w konsoli.
