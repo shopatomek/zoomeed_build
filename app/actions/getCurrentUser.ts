@@ -7,31 +7,44 @@ export async function getSession() {
 }
 export default async function getCurrentUser() {
    try {
-
     const session = await getSession();
 
     if(!session?.user?.email){
         return null;
     }
 
-    const user = await prisma.user.findUnique({
+    const currentUser = await prisma.user.findUnique({
         where: {
             email: session.user.email as string
         }
     });
+
+    if (!currentUser){
+        return null;
+    }
+
+    return currentUser
    } catch (error:any) {
     return null;
    }
 }
-// // Kod, który podałeś, zawiera dwie funkcje eksportowane: getSession oraz getCurrentUser. Zacznijmy od linii if(!session?.user?.email), która znajduje się wewnątrz funkcji getCurrentUser.
 
-// Ten warunek sprawdza, czy wartość email wewnątrz obiektu user w obiekcie session istnieje. Jeśli którykolwiek z tych obiektów nie istnieje lub wartość email jest pusta lub fałszywa, warunek zostanie spełniony. W takim przypadku funkcja getCurrentUser zwróci null, co oznacza, że nie udało się uzyskać poprawnych danych użytkownika.
+// Kod, który przedstawiłeś, jest modułem w języku JavaScript i zawiera dwie eksportowane funkcje: getSession i getCurrentUser. Oto wyjaśnienie kodu, opierając się na wcześniejszych wyjaśnieniach:
+
+// Pierwsze dwie linie kodu importują funkcję getServerSession z modułu "next-auth/next", obiekt authOptions z pliku "@/pages/api/auth/[...nextauth]", oraz moduł prisma z "@/app/libs/prismadb".
+
+// Funkcja getSession jest oznaczona jako asynchroniczna (async) i zwraca wynik wywołania getServerSession z argumentem authOptions. Oznacza to, że funkcja getSession pobiera sesję serwera używając opcji autoryzacji dostarczonych z authOptions.
+
+// Funkcja getCurrentUser również jest oznaczona jako asynchroniczna (async). Wewnątrz funkcji, najpierw wywoływana jest funkcja getSession, aby uzyskać bieżącą sesję.
+
+// Następnie, w linii if(!session?.user?.email), sprawdzane jest, czy wartość email w obiekcie user w obiekcie session istnieje lub nie jest pusta. Jeśli wartość ta nie istnieje lub jest pusta, funkcja zwraca null, co oznacza, że nie udało się uzyskać poprawnych danych użytkownika.
 
 // Jeśli warunek nie jest spełniony, kod kontynuuje wykonanie i przechodzi do następnej linii, w której znajduje się zapytanie do bazy danych. Wykorzystuje ono prisma, aby znaleźć unikalnego użytkownika na podstawie jego adresu email, który jest pobrany z session.user.email.
 
-// Jeśli wystąpi jakikolwiek błąd podczas wykonywania tego zapytania lub innych operacji asynchronicznych wewnątrz funkcji getCurrentUser, kod jest zabezpieczony blokiem try-catch. Jeśli pojawi się błąd, zostanie przechwycony i funkcja getCurrentUser zwróci null.
+// Następnie, w linii if (!currentUser), sprawdzane jest, czy zapytanie do bazy danych zwróciło użytkownika. Jeśli użytkownik nie istnieje, funkcja zwraca null.
 
-// Podsumowując, funkcja getCurrentUser sprawdza, czy istnieje zalogowany użytkownik poprzez sprawdzenie, czy jest dostępny adres email w obiekcie sesji. Następnie korzysta z tego adresu email do wyszukania odpowiadającego użytkownika w bazie danych przy użyciu prisma. Jeśli wszystko przebiegnie pomyślnie, zostanie zwrócony obiekt użytkownika. W przeciwnym razie, jeśli wystąpi błąd lub brak danych, zostanie zwrócone null.
+// Jeśli wszystko przebiegnie pomyślnie, to znaczy jeśli użytkownik istnieje i nie ma żadnych błędów, funkcja getCurrentUser zwraca obiekt currentUser, który reprezentuje dane bieżącego użytkownika.
 
+// W przypadku wystąpienia błędu podczas wykonywania zapytania do bazy danych lub innych operacji asynchronicznych, kod jest zabezpieczony blokiem try-catch. Jeśli pojawi się błąd, zostanie przechwycony i funkcja getCurrentUser zwróci null.
 
-// \
+// Podsumowując, kod ten służy do pobierania bieżącej sesji, sprawdzania, czy użytkownik jest zalogowany (na podstawie obiektu sesji) i pobierania danych bieżącego użytkownika z bazy danych. Jeśli wystąpią błędy lub brak danych, funkcja zwraca null. W przeciwnym razie zwracany jest obiekt reprezentujący bieżącego użytkownika.
