@@ -1,0 +1,8 @@
+{
+    "build": {
+      "env": {
+        "PRISMA_CLI_QUERY_ENGINE_BINARY": "/usr/bin/query-engine"
+      }
+    }
+  }
+  
